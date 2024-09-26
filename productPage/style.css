@@ -1,0 +1,123 @@
+:root {
+    --backColor: rgb(15, 15, 15);
+    --redColor: rgb(185, 50, 50);
+}
+html::-webkit-scrollbar {
+    display: none;
+}
+html {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+} 
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: black;
+    font-family: "SUSE";
+    overflow-x: hidden;
+}
+i {
+    color: white;
+}
+a {
+    color: white;
+    text-decoration: none;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 30px;
+    background-color: var(--backColor);
+    align-items: center;
+    width: 100vw;
+    position: fixed;
+    box-sizing: border-box;
+    z-index: 2;
+}
+.headerButtons {
+    display: flex;
+    gap: 50px;
+    font-size: 25px;
+}
+.headerButtons > *, .visibilityToggle {
+    cursor: pointer;
+}
+.visibilityToggle {
+    position: fixed;
+    font-size: 2em;
+    margin-left: 50%;
+    margin-top: 40px;
+    transform: translate(-50%, -50%);
+    color: rgb(125, 100, 100);
+    z-index: 3;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 100px;
+    justify-content: space-between;
+}
+.itemPage {
+    width: 70vw;
+    margin: 150px auto;
+}
+.buyPanel {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--backColor);
+    padding: 50px;
+    padding-top: 100px;
+    font-size: 40px;
+    width: 40%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    gap: 100px;
+}
+#quantity {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.quantity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.quantityText {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+    align-items: center;
+}
+.quantityChoice {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+.quantityChoice > button, .buyPanel > button{
+    background-color: var(--backColor);
+    border: 0;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+.buyPanel > button {
+    border: 1px solid white;
+    padding: 15px;
+    border-radius: 20px;
+}
+.itemDescription {
+    background-color: var(--backColor);
+    padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.inStock {
+    font-size: 20px;
+}
