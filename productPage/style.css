@@ -68,6 +68,7 @@ header {
     margin: 150px auto;
 }
 .buyPanel {
+    position: relative;
     display: flex;
     flex-direction: column;
     background-color: var(--backColor);
@@ -117,7 +118,25 @@ header {
     padding: 30px;
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+}
+.upperRightPencil {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 20px;
+    cursor: pointer;
 }
 .inStock {
     font-size: 20px;
+}
+input {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: inherit;
+    background-color: inherit;
+    color: inherit;
+    width: 100%;
+    box-sizing: border-box;
 }

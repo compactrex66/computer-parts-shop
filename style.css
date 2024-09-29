@@ -130,7 +130,7 @@ header {
 }
 a {
     flex-grow: 1;
-    width: 22vw;
+    width: 20vw;
 }
 .item, .addItem {
     height: fit-content;
@@ -195,7 +195,7 @@ a {
     cursor: pointer;
     background-color: var(--backColor);
 }
-header > a {
+.headerButtons > a {
     width: fit-content;
     flex-grow: 0;
 }

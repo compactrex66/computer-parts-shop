@@ -112,6 +112,20 @@ if (document.getElementById("inStock") != null) {
     });
 }
 
+//edit product page
+
+if(document.getElementById("editBuyPanel")) {
+    let editBuyPanel = document.getElementById("editBuyPanel");
+    let editDescription = document.getElementById("editDescription");
+    let productPrice = document.getElementById("price");
+    let inStock = document.getElementById("inStock");
+
+    editBuyPanel.addEventListener("click", () => {
+        productPrice.innerHTML = `<input value="${productPrice.innerText}"></input>`;
+        inStock.innerHTML = `<input value="${inStock.innerText}"></input>`;
+    });
+}
+
 //add to cart
 if(document.getElementById("productId") != null) {
     let productId = parseInt(document.getElementById("productId").innerText)

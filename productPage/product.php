@@ -6,6 +6,11 @@
     } else {
         header("Location: ../index.php");
     }
+    if(isset($_SESSION['hasAdminPrivilege'])) {
+        if($_SESSION['hasAdminPrivilege']) {
+            $hasAdminPrivilege = true;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,27 +53,39 @@
         <input type="submit">
     </form>
     <div class="itemPage">
-        <div class="row">
-            <?php
-                $conn = mysqli_connect('localhost', 'root', '', 'sklep');
-                $sql = 'select * from inventory where id='.$productId.'';
-                $result =  mysqli_fetch_row(mysqli_query($conn, $sql));
+        <form action="" method="post">
+            <div class="row">
+                <?php
+                    $conn = mysqli_connect('localhost', 'root', '', 'sklep');
+                    $sql = 'select * from inventory where id='.$productId.'';
+                    $result =  mysqli_fetch_row(mysqli_query($conn, $sql));
 
-                echo '<img src="../media/'.$result[5].'">';
-            ?>
-            <div class="buyPanel">
-                <?php echo $result[2]." zł"; echo "<span id=productId style='display: none;'>".$result[0]."</span>" ?>
-                <div class="quantity">
-                    <div class="quantityChoice"><button id="decreaseQuantity"><</button> <span id="quantity">1</span> <button id="increaseQuantity">></button></div>
-                    <div class="quantityText">ilość <span>|</span> <?php echo "<span id='inStock'>".$result[6]."</span>".' W magazynie' ?> </div>
+                    echo '<img src="../media/'.$result[5].'">';
+                ?>
+                <div class="buyPanel">
+                    <?php
+                        if(isset($hasAdminPrivilege) && $hasAdminPrivilege) {
+                            echo '<i class="fa-solid fa-pencil upperRightPencil" id="editBuyPanel"></i>';
+                        }
+                        echo "<span> <span id='price'>".$result[2]."</span> zł </span>"; echo "<span id=productId style='display: none;'>".$result[0]."</span>"
+                    ?>
+                    <div class="quantity">
+                        <div class="quantityChoice"><button id="decreaseQuantity"><</button> <span id="quantity">1</span> <button id="increaseQuantity">></button></div>
+                        <div class="quantityText">ilość <span>|</span> <?php echo "<span id='inStock'>".$result[6]."</span>".' W magazynie' ?> </div>
+                    </div>
+                    <button id="addToCartBtn">Dodaj do koszyka</button>
                 </div>
-                <button id="addToCartBtn">Dodaj do koszyka</button>
             </div>
-        </div>
-        <div class="itemDescription">
-            <h1>Opis</h1>
-            <?php echo $result[3]; ?>
-        </div>
+            <div class="itemDescription">
+                <?php
+                    if(isset($hasAdminPrivilege) && $hasAdminPrivilege) {
+                        echo '<i class="fa-solid fa-pencil upperRightPencil" id="editDescription"></i>';
+                    }
+                ?>
+                <h1>Opis</h1>
+                <?php echo '<span id="description">'.$result[3].'</span>'; ?>
+            </div>
+        </form>
     </div>
     <script src="../index.js"></script>
 </body>
