@@ -114,15 +114,58 @@ if (document.getElementById("inStock") != null) {
 
 //edit product page
 
-if(document.getElementById("editBuyPanel")) {
-    let editBuyPanel = document.getElementById("editBuyPanel");
-    let editDescription = document.getElementById("editDescription");
+if(document.getElementById("editBuyPanelBtn")) {
+    let editBuyPanelBtn = document.getElementById("editBuyPanelBtn");
+    let editDescriptionBtn = document.getElementById("editDescriptionBtn");
     let productPrice = document.getElementById("price");
     let inStock = document.getElementById("inStock");
+    let description = document.getElementById("description");
+    let saveChangesBtn = document.getElementById("saveChangesBtn");
+    let editForm = document.getElementById("editForm");
+    let isSaveChangesBtnVisible = false;
 
-    editBuyPanel.addEventListener("click", () => {
-        productPrice.innerHTML = `<input value="${productPrice.innerText}"></input>`;
-        inStock.innerHTML = `<input value="${inStock.innerText}"></input>`;
+    let priceInput = document.createElement("input");
+    priceInput.value = productPrice.innerText;
+    priceInput.id = "priceInput";
+    priceInput.name = "price";
+
+    let inStockInput = document.createElement("input");
+    inStockInput.value = inStock.innerText;
+    inStockInput.id = "inStockInput";
+    inStockInput.name = "inStock";
+
+    let descriptionTextarea = document.createElement("textarea");
+    descriptionTextarea.innerText = description.innerText;
+    descriptionTextarea.id = "descriptionTextarea";
+    descriptionTextarea.name = "description"
+
+    editBuyPanelBtn.addEventListener("click", () => {
+        if(!isSaveChangesBtnVisible) {
+            saveChangesBtn.animate(
+                { top: "150px" },
+                { fill: "forwards", duration: 150, easing: "ease-out"}
+            )
+        }
+
+        productPrice.replaceWith(priceInput);
+        inStock.replaceWith(inStockInput);
+        priceInput.focus();
+    });
+
+    editDescriptionBtn.addEventListener("click", () => {
+        if(!isSaveChangesBtnVisible) {
+            saveChangesBtn.animate(
+                { top: "150px" },
+                { fill: "forwards", duration: 150, easing: "ease-out"}
+            )
+        }
+
+        description.replaceWith(descriptionTextarea);
+        descriptionTextarea.focus();
+    });
+
+    saveChangesBtn.addEventListener("click", () => {
+        editForm.submit();
     });
 }
 

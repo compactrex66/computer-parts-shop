@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $conn = mysqli_connect('localhost', 'root', '', 'sklep');
 
     if(isset($_GET['productId'])) { 
         $productId = $_GET['productId'];
@@ -10,6 +11,22 @@
         if($_SESSION['hasAdminPrivilege']) {
             $hasAdminPrivilege = true;
         }
+    }
+
+    if(isset($_POST['price']) && isset($_POST['inStock']) && isset($_POST['description'])) {
+        $price = $_POST['price'];
+        $inStock = $_POST['inStock'];
+        $description = $_POST['description'];
+        mysqli_query($conn, "UPDATE inventory SET price = $price, description = '$description', inStock = $inStock WHERE inventory.id = $productId");
+    }
+    else if(isset($_POST['price']) && isset($_POST['inStock'])) {
+        $price = $_POST['price'];
+        $inStock = $_POST['inStock'];
+        mysqli_query($conn, "UPDATE inventory SET price = $price, inStock = $inStock WHERE inventory.id = $productId");
+    }
+    else if(isset($_POST['description'])) {
+        $description = $_POST['description'];
+        mysqli_query($conn, "UPDATE inventory SET description = '$description' WHERE inventory.id = $productId");
     }
 ?>
 <!DOCTYPE html>
@@ -31,6 +48,7 @@
         <input type="text" id="itemIdInput" name="removedItemId">
     </form>
     <div class="visibilityToggle" id="visibilityToggle"><span class="material-symbols-outlined" style="font-size: 2rem;">keyboard_arrow_up</span></div>
+    <button class="middleTopBtn" id="saveChangesBtn">Zapisz Zmiany</button>
     <header id="header">
         <div class="logo">
             Sklep
@@ -47,16 +65,15 @@
             ?>
         </div>
     </header>
-    <form action="../cart/cart.php" method="post" id="productForm" style="display: none;">
+    <form action="../cart/cart.php" method="post" id="productForm" >
         <input type="number" name="productId" id="productIdInput">
         <input type="number" name="quantity" id="quantityInput">
         <input type="submit">
     </form>
     <div class="itemPage">
-        <form action="" method="post">
+        <form action="" method="post" id="editForm">
             <div class="row">
                 <?php
-                    $conn = mysqli_connect('localhost', 'root', '', 'sklep');
                     $sql = 'select * from inventory where id='.$productId.'';
                     $result =  mysqli_fetch_row(mysqli_query($conn, $sql));
 
@@ -65,21 +82,21 @@
                 <div class="buyPanel">
                     <?php
                         if(isset($hasAdminPrivilege) && $hasAdminPrivilege) {
-                            echo '<i class="fa-solid fa-pencil upperRightPencil" id="editBuyPanel"></i>';
+                            echo '<i class="fa-solid fa-pencil upperRightPencil" id="editBuyPanelBtn"></i>';
                         }
-                        echo "<span> <span id='price'>".$result[2]."</span> zł </span>"; echo "<span id=productId style='display: none;'>".$result[0]."</span>"
+                        echo "<span class='price'> <span id='price'>".$result[2]."</span> zł </span>"; echo "<span id=productId style='display: none;'>".$result[0]."</span>"
                     ?>
                     <div class="quantity">
                         <div class="quantityChoice"><button id="decreaseQuantity"><</button> <span id="quantity">1</span> <button id="increaseQuantity">></button></div>
                         <div class="quantityText">ilość <span>|</span> <?php echo "<span id='inStock'>".$result[6]."</span>".' W magazynie' ?> </div>
                     </div>
-                    <button id="addToCartBtn">Dodaj do koszyka</button>
+                    <button type="button" id="addToCartBtn">Dodaj do koszyka</button>
                 </div>
             </div>
             <div class="itemDescription">
                 <?php
                     if(isset($hasAdminPrivilege) && $hasAdminPrivilege) {
-                        echo '<i class="fa-solid fa-pencil upperRightPencil" id="editDescription"></i>';
+                        echo '<i class="fa-solid fa-pencil upperRightPencil" id="editDescriptionBtn"></i>';
                     }
                 ?>
                 <h1>Opis</h1>

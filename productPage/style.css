@@ -119,6 +119,7 @@ header {
     width: 100%;
     box-sizing: border-box;
     position: relative;
+    margin-bottom: 40px;
 }
 .upperRightPencil {
     position: absolute;
@@ -127,16 +128,50 @@ header {
     font-size: 20px;
     cursor: pointer;
 }
+#priceInput, #inStockInput {
+    border-radius: 15px;
+}
+#inStockInput {
+    width: 45px;
+}
+.price {
+    box-sizing: border-box;
+    height: 50px;
+}
 .inStock {
     font-size: 20px;
 }
 input {
     border: 1px solid gray;
-    padding: 10px;
     border-radius: 15px;
     font-size: inherit;
     background-color: inherit;
     color: inherit;
-    width: 100%;
+    width: 150px;
     box-sizing: border-box;
+    padding: 10px;
+}
+#descriptionTextarea {
+    width: 100%;
+    height: 20vh;
+    resize: none;
+    background-color: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.middleTopBtn {
+    top: -50px;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--backColor);
+    font-size: 1.5rem;
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+    border: 1px solid white;
+    position: fixed;
+    cursor: pointer;
 }
